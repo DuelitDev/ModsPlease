@@ -108,9 +108,12 @@ def pack(input_dir: str, output_file: str):
 
     # write data
     os.chdir(execute_dir)
-    data = _encrypt(data)
+    data.seek(0)
+    new = io.BytesIO()
+    new.write(header)
+    new.write(data.read())
+    data = _encrypt(new)
     with open(output_file, "wb") as output:
-        output.write(header)
         output.write(data.read())
         output.write(b"\0" * (8 - output.tell() % 8))
     # end write data
