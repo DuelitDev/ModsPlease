@@ -140,7 +140,7 @@ def unpack(input_file: str, output_dir: str):
     switch = ""
     i = 0
     while True:
-        operator = file.read(1).decode("utf-8")
+        operator = buffer.read(1).decode("utf-8")
         """
         --------------------- operators --------------------
         |  y  |  y(?<len>[0-9]+)   |  read (len) bytes.    |
@@ -180,7 +180,7 @@ def unpack(input_file: str, output_dir: str):
         n = os.path.join(output_dir, n)
         os.makedirs("/".join(n.split("/")[:-1]), exist_ok=True)
         with open(n, "wb") as extracted_file:
-            extracted_file.write(file.read(s))
+            extracted_file.write(buffer.read(s))
     # end extract files
 
 
@@ -198,6 +198,7 @@ if __name__ == "__main__":
                 print(HELP)
             else:
                 assert False
-        assert False
+        else:
+            assert False
     except AssertionError:
         print("Invalid command. Try '--help' for more information.")
