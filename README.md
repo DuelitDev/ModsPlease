@@ -1,12 +1,16 @@
 # Mods, Please
-Tool for encrypt/decrypt Art.dat (Papers, Please data file)
+Tool for encrypt/decrypt `Papers, Please` game assets.
 
-## Example
-encrypt: `python packer.py -e output Art.dat`  
-decrypt: `python packer.py -d Art.dat output`
 
-## Copyright
-Copyright 2023. DuelitDev all rights reserved.
+# How to use
+## For v1.4.x
+Work in progress.
 
-# License
-[MIT License](https://github.com/DuelitDev/ModsPlease/blob/master/LICENSE)
+## For v1.2.76 or older
+```shell
+# encrypt
+python packer.py -e output Art.dat
+
+#decrypt
+python packer.py -d Art.dat output
+```

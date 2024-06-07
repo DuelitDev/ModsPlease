@@ -2,6 +2,7 @@
 # Mods, Please (version: 1.0.0)
 #
 # This Program is distributed under the MIT License.
+# This Program does not work for v1.4.x or later.
 
 import io
 import os
