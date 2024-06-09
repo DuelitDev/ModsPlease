@@ -9,13 +9,11 @@ import os
 import sys
 
 __all__ = [
-    "pack", "unpack", "_encrypt", "_decrypt"
+    "_encrypt",
+    "_decrypt",
+    "pack",
+    "unpack"
 ]
-
-HELP = """
--e [input directory] [output file]: encrypt directory to .dat file.
--d [input file] [output directory]: decrypt .dat file to directory.
-"""
 
 
 def _encrypt(buffer: io.BytesIO) -> io.BytesIO:
@@ -186,23 +184,3 @@ def unpack(input_file: str, output_dir: str):
         with open(n, "wb") as extracted_file:
             extracted_file.write(buffer.read(s))
     # end extract files
-
-
-if __name__ == "__main__":
-    try:
-        if len(sys.argv) == 4:
-            if sys.argv[1] == "-e":
-                pack(*sys.argv[2:4])
-            elif sys.argv[1] == "-d":
-                unpack(*sys.argv[2:4])
-            else:
-                assert False
-        elif len(sys.argv) == 2:
-            if sys.argv[1] == "--help":
-                print(HELP)
-            else:
-                assert False
-        else:
-            assert False
-    except AssertionError:
-        print("Invalid command. Try '--help' for more information.")
