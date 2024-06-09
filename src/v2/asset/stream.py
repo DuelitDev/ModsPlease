@@ -1,10 +1,10 @@
+import binascii
 import io
 import os
-import binascii
-
 
 __all__ = [
-    "extract_archive"
+    "extract_archive",
+    "create_archive"
 ]
 
 
