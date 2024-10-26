@@ -9,7 +9,7 @@ Tool for encrypt/decrypt `Papers, Please` game assets.
 | **decrypt Art.dat**          |  X  |
 | **encrypt Art.dat**          |  X  |
 
-* Use UABE
+\* Use UABE
 
 
 # How to use
