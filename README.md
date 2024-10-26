@@ -5,9 +5,11 @@ Tool for encrypt/decrypt `Papers, Please` game assets.
 | issues                       | O/X |
 |------------------------------|:---:|
 | **modding streaming assets** |  O  |
-| **modding unity asset file** |  X  |
+| **modding unity asset file** |  O* |
 | **decrypt Art.dat**          |  X  |
 | **encrypt Art.dat**          |  X  |
+
+* Use UABE
 
 
 # How to use
