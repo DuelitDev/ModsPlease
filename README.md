@@ -24,14 +24,14 @@ Work in progress.
 # python packer.py [mode] [input] [output]
 #
 # # modes
-# encrypt: `-e`
 # decrypt: `-d`
-
-# # encrypt
-python packer.py -e ./output ./Art.dat # <-- The path where game data is created.
-#                   ^^^^^^^^~~ Creates game data with the assets in this folder.
+# encrypt: `-e`
 
 # # decrypt
 python packer.py -d ./Art.dat ./output # <-- Folder where extracted game data is saved.
 #                   ^^^^^^^^^~~ Extracts game data from this file.
+
+# # encrypt
+python packer.py -e ./output ./Art.dat # <-- The path where game data is created.
+#                   ^^^^^^^^~~ Creates game data with the assets in this folder.
 ```
