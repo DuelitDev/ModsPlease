@@ -5,11 +5,14 @@ Tool for encrypt/decrypt `Papers, Please` game assets.
 | issues                       | O/X |
 |------------------------------|:---:|
 | **modding streaming assets** |  O  |
-| **modding unity asset file** |  O  |
+| **modding Unity asset file** |  O  |
 | **analyze Art.dat**          |  O  |
 
 # How to use
 ## For v1.4.11
+You need to extract Art.dat from Unity assets.
+(Try to use UABE)
+
 ```shell
 # examples
 # python packer.py --help
