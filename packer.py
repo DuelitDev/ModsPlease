@@ -21,40 +21,35 @@ DELTA = 0x9E3779B9
 
 
 def encrypt(buffer: BytesIO) -> BytesIO:
-   size = buffer.getbuffer().nbytes >> 2
-   rounds = 52 // size + 6
-   current = 0
+    size = buffer.getbuffer().nbytes >> 2
+    rounds = 52 // size + 6
+    current = 0
 
-   # data to uint32 array
-   v = []
-   buffer.seek(0)
-   for i in range(0, size << 2, 4):
-       v.append(int.from_bytes(buffer.read(4), "little"))
+    # data to uint32 array
+    v = []
+    buffer.seek(0)
+    for i in range(0, size << 2, 4):
+        v.append(int.from_bytes(buffer.read(4), "little"))
 
-   # encrypt
-   z = v[size - 1]
-   for _ in range(rounds):
-       current = (current + DELTA) & 0xFFFFFFFF
-       e = (current >> 2) & 3
-       for p in range(size - 1):
-           y = v[p + 1]
-           mx = (((z >> 5 ^ y << 2) + (y >> 3 ^ z << 4)) ^ 
-                 ((current ^ y) + (KEY[(p & 3) ^ e] ^ z)))
-           v[p] = (v[p] + mx) & 0xFFFFFFFF
-           z = v[p]
-       y = v[0]
-       mx = (((z >> 5 ^ y << 2) + (y >> 3 ^ z << 4)) ^ 
-             ((current ^ y) + (KEY[((size - 1) & 3) ^ e] ^ z)))
-       v[size - 1] = (v[size - 1] + mx) & 0xFFFFFFFF
-       z = v[size - 1]
+    # encrypt
+    z = v[size - 1]
+    for _ in range(rounds):
+        current = (current + DELTA) & 0xFFFFFFFF
+        e = (current >> 2) & 3
+        for p in range(size):
+            y = v[(p + 1) % size]  # 순환 처리
+            mx = (((z >> 5 ^ y << 2) + (y >> 3 ^ z << 4)) ^ 
+                  ((current ^ y) + (KEY[(p & 3) ^ e] ^ z)))
+            v[p] = (v[p] + mx) & 0xFFFFFFFF
+            z = v[p]
 
-   # rewrite to buffer
-   buffer.seek(0)
-   buffer.truncate()
-   for block in v:
-       buffer.write(block.to_bytes(4, 'little'))
-   buffer.seek(0)
-   return buffer
+    # rewrite to buffer
+    buffer.seek(0)
+    buffer.truncate()
+    for block in v:
+        buffer.write(block.to_bytes(4, 'little'))
+    buffer.seek(0)
+    return buffer
 
 
 def decrypt(buffer: BytesIO) -> BytesIO:
@@ -115,6 +110,7 @@ def pack(input_dir: str, output_file: str, verbose: bool = False):
         for filename in filenames:
             path = os.path.join(base, filename).replace("\\", "/")
             files.append(path)
+    files.sort()
 
     # write header (haxe format)
     if verbose:
@@ -150,7 +146,6 @@ def pack(input_dir: str, output_file: str, verbose: bool = False):
     # write file
     with open(output_file, "wb") as output:
         output.write(data.read())
-        output.write(b"\0" * (8 - output.tell() % 8))
     if verbose:
         print(f"Successfully packed to: {output_file.replace('\\', '/')}")
 
